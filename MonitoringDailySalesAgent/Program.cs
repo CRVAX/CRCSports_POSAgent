@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using Utility;
 using System.IO;
+using MonitoringDailySalesAgent.Logic;
+using MonitoringDailySalesAgent.Enum;
 
 namespace MonitoringDailySalesAgent
 {
@@ -13,15 +15,21 @@ namespace MonitoringDailySalesAgent
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
             MonitoringUtility.WriteLog(DateTime.Now.ToString(ConstMessage.MonthDateSecondFormat) + ConstMessage.ColonSpace + ConstMessage.ServiceOnTimer);
             var storeNumber = string.Empty;
             var terminal = string.Empty;
-            var storeConfig = ConfigurationManager.AppSettings["StoreConfig"].ToString();
-            var dayPeriod = int.Parse(ConfigurationManager.AppSettings["DayPeriod"].ToString());
+            //var storeConfig = ConfigurationManager.AppSettings["StoreConfig"].ToString();
+            //var dayPeriod = int.Parse(ConfigurationManager.AppSettings["DayPeriod"].ToString());
+            //var listStore = MonitoringUtility.ReadCsvFile(storeConfig);
+
+            ConfigurationStore configurationStore = StoreConfigLogic.GetByType(args, EnumTypeStoreConfig.StoreConfig);
+
+            var listStore = configurationStore.storeConfigs;
+            var dayPeriod = configurationStore.DayPeriod;
             var currentBusinessDate = DateTime.Today.AddDays(dayPeriod);
-            var listStore = MonitoringUtility.ReadCsvFile(storeConfig);
+
             foreach (var store in listStore)
             {
                 var lstSummaryPOSOrder = new List<SummaryPOSOrders>();
@@ -154,5 +162,6 @@ namespace MonitoringDailySalesAgent
             }
             return result;
         }
+
     }
 }

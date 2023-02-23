@@ -12,4 +12,16 @@ namespace Utility
         public string DBName { get; set; }
 
     }
+
+    public class ConfigurationStore
+    {
+        public List<StoreConfig> storeConfigs { get; set; } = new List<StoreConfig>();
+        public int DayPeriod { get; set; } = 0;
+    }
+
+    public class ArgModel
+    {
+        public string Environment { get; set; } = "";
+        public int DayPeriod { get; set; }
+    }
 }
