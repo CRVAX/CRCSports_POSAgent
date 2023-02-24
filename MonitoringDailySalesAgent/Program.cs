@@ -99,6 +99,8 @@ namespace MonitoringDailySalesAgent
                     MonitoringUtility.WriteLog(store.POSName + " - " + DateTime.Now.ToString(ConstMessage.MonthDateSecondFormat) + ConstMessage.ColonSpace + string.Format(ConstMessage.ServiceError, exceptionMessage));
                 }
             }
+
+            Console.ReadLine();
         }
 
         private static void uploadCSVToSFTP(string storeNumber, DateTime currentBusinessDate, List<SummaryPOSOrders> lstSummaryPOSOrder, bool replace = true)

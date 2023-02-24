@@ -11,7 +11,7 @@ namespace MonitoringDailySalesAgent.Enum
     {
         public static string GetEnumArgsKey(EnumArgs param)
         {
-            return $"--{param}";
+            return string.Format("--{0}", param);
         }
     }
 

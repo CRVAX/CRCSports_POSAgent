@@ -36,9 +36,10 @@ namespace MonitoringDailySalesAgent.Logic
                     throw new Exception("Error GetByType: Array Store Config null");
                 }
 
+                resultConfig.storeConfigs = new List<StoreConfig>();
                 foreach (string obj in arrStore)
                 {
-                    if (!string.IsNullOrEmpty(obj))
+                    if (string.IsNullOrEmpty(obj))
                     {
                         continue;
                     }
@@ -72,11 +73,6 @@ namespace MonitoringDailySalesAgent.Logic
             foreach (string s in args)
             {
                 string[] parts = s.Split('=');
-
-                if (parts == null || parts?.Length != 2)
-                {
-                    continue;
-                }
 
                 if(parts[0].ToUpper().ToString() == EnumLogic.GetEnumArgsKey(EnumArgs.Environment))
                 {
